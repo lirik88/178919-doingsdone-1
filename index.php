@@ -108,7 +108,9 @@ $days_until_deadline = floor(($task_deadline_ts - $current_ts) / 86400);
                     <label class="checkbox">
                         <a href="/">
                             <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
-                            <input class="checkbox__input visually-hidden" type="checkbox">
+                            <input class="checkbox__input visually-hidden"
+                                   <?= ($show_complete_tasks == 1) ? "checked" : ""; ?>
+                                   type="checkbox">
                             <span class="checkbox__text">Показывать выполненные</span>
                         </a>
                     </label>
@@ -116,7 +118,22 @@ $days_until_deadline = floor(($task_deadline_ts - $current_ts) / 86400);
 
                 <table class="tasks">
                     <!--показывать следующий тег <tr/>, если переменная равна единице-->
-                    <tr class="tasks__item task task--completed <?= ($days_until_deadline <= 0) ? "task--important" : ""; ?>">
+	                <?php if ($show_complete_tasks == 1) : ?>
+		                <tr class="tasks__item task task--completed">
+			                <td class="task__select">
+				                <label class="checkbox task__checkbox">
+					                <input class="checkbox__input visually-hidden" type="checkbox" checked>
+					                <span class="checkbox__text">Записаться на интенсив "Базовый PHP"</span>
+				                </label>
+			                </td>
+			                <td class="task__date">10.04.2017</td>
+
+			                <td class="task__controls">
+			                </td>
+		                </tr>
+	                <?php endif; ?>
+              
+                  <tr class="tasks__item task task--completed <?= ($days_until_deadline <= 0) ? "task--important" : ""; ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden" type="checkbox" checked>
