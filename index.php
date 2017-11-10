@@ -12,6 +12,14 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 		  ['item' => 'Купить корм для кота',            'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => 'no'],
 		  ['item' => 'Заказать пиццу',                  'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => 'no']];
 
+function getNumberOfTasks(array $tasks, string $project) {
+	$result = 0;
+	foreach ($tasks as $task) {
+		if ($task['project'] === $project) $result++;
+		elseif ($project === 'Все') $result++;
+	}
+	return $result;
+}
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +68,7 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
                         <?php for($i = 0; $i < count($projects); $i++) : ?>
 	                    <li class="main-navigation__list-item <?= ($i === 0) ? "main-navigation__list-item--active" : ""; ?>">
                             <a class="main-navigation__list-item-link" href="#"><?= $projects[$i] ?></a>
-                            <span class="main-navigation__list-item-count">24</span>
+                            <span class="main-navigation__list-item-count"><?= getNumberOfTasks($tasks, $projects[$i]) ?></span>
                         </li>
 	                    <?php endfor; ?>
                     </ul>
