@@ -12,6 +12,7 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 		  ['item' => 'Купить корм для кота',            'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false],
 		  ['item' => 'Заказать пиццу',                  'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false]];
 
+
 function getNumberOfTasks(array $tasks, string $project) {
 	$result = 0;
 	if ($project === 'Все') {
@@ -24,6 +25,7 @@ function getNumberOfTasks(array $tasks, string $project) {
 	}
 	return $result;
 }
+
 
 ?>
 <!DOCTYPE html>
