@@ -5,18 +5,22 @@ $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Дом
 
 
 //ассоциативный массив с задачами
-$tasks = [['item' => 'Собеседование в IT компании',     'date' => '01.06.2018', 'project' => 'Работа',        'complete' => 'no'],
-		  ['item' => 'Выполнить тестовое задание',      'date' => '25.05.2018', 'project' => 'Работа',        'complete' => 'no'],
-		  ['item' => 'Сделать задание первого раздела', 'date' => '21.04.2018', 'project' => 'Учеба',         'complete' => 'yes'],
-		  ['item' => 'Встреча с другом',                'date' => '22.04.2018', 'project' => 'Входящие',      'complete' => 'no'],
-		  ['item' => 'Купить корм для кота',            'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => 'no'],
-		  ['item' => 'Заказать пиццу',                  'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => 'no']];
+$tasks = [['item' => 'Собеседование в IT компании',     'date' => '01.06.2018', 'project' => 'Работа',        'complete' => false],
+		  ['item' => 'Выполнить тестовое задание',      'date' => '25.05.2018', 'project' => 'Работа',        'complete' => false],
+		  ['item' => 'Сделать задание первого раздела', 'date' => '21.04.2018', 'project' => 'Учеба',         'complete' => true],
+		  ['item' => 'Встреча с другом',                'date' => '22.04.2018', 'project' => 'Входящие',      'complete' => false],
+		  ['item' => 'Купить корм для кота',            'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false],
+		  ['item' => 'Заказать пиццу',                  'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false]];
 
 function getNumberOfTasks(array $tasks, string $project) {
 	$result = 0;
+	if ($project === 'Все') {
+		return count($tasks);
+	}
 	foreach ($tasks as $task) {
-		if ($task['project'] === $project) $result++;
-		elseif ($project === 'Все') $result++;
+		if ($task['project'] === $project) {
+			$result++;
+		}
 	}
 	return $result;
 }
@@ -106,7 +110,7 @@ function getNumberOfTasks(array $tasks, string $project) {
                 <table class="tasks">
 
 	                <?php foreach ($tasks as $task) : ?>
-		                <tr class="tasks__item task <?= ($task['complete'] === 'yes') ? "task--completed" : ""; ?>">
+		                <tr class="tasks__item task <?= ($task['complete']) ? "task--completed" : ""; ?>">
 			                <td class="task__select">
 				                <label class="checkbox task__checkbox">
 					                <input class="checkbox__input visually-hidden" type="checkbox">
