@@ -132,7 +132,7 @@ $days_until_deadline = floor(($task_deadline_ts - $current_ts) / 86400);
 			                </td>
 		                </tr>
 	                <?php endif; ?>
-              
+
                   <tr class="tasks__item task task--completed <?= ($days_until_deadline <= 0) ? "task--important" : ""; ?>">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
