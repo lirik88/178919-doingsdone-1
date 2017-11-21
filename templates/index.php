@@ -27,7 +27,7 @@
 	<table class="tasks">
 
 		<?php foreach ($tasks as $task) : ?>
-			<?php if (getTasks($task['project'], $projects)) : ?>
+			<?php if ((isset($_GET['id']) && isTaskOfProject($task['project'], $projects)) || !count($_GET)) : ?>
 				<tr class="tasks__item task <?= (htmlentities($task['complete'])) ? "task--completed" : ""; ?>">
 					<td class="task__select">
 						<label class="checkbox task__checkbox">

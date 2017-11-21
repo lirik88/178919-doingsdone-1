@@ -14,7 +14,7 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 
 
 //Выводим 404 при неправильном id
-if (isset($_GET['id']) && !isset($projects[$_GET['id']])) {
+if (count($_GET) && !isset($projects[$_GET['id']])) {
 	header('HTTP/1.0 404 Not Found', true, 404);
 	die();
 }
