@@ -27,3 +27,18 @@ function getNumberOfTasks(array $tasks, string $project) {
 	}
 	return $result;
 }
+
+//Функция валидации даты
+function isCorrectDate ($date) {
+	$aDate_parts = preg_split("/[\s-]+/", $date);
+
+	if (checkdate(
+	$aDate_parts[1], // Month
+	$aDate_parts[2], // Day
+	$aDate_parts[0] // Year
+	)
+	) {
+		return true;
+	}
+	return false;
+}
