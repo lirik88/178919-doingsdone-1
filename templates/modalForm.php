@@ -1,37 +1,41 @@
 <?php
-$name = htmlentities($_POST['name']) ?? '';
-$date = htmlentities($_POST['date']) ?? '';
-
+$name = $_POST['name'] ?? '';
+$date = $_POST['date'] ?? '';
 ?>
+
 <div class="modal">
 	<button class="modal__close" type="button" name="button">Закрыть</button>
 
 	<h2 class="modal__heading">Добавление задачи</h2>
 
-	<form class="form"  action="index.php" method="post">
+	<form class="form"  action="index.php" method="post" enctype="multipart/form-data">
 		<div class="form__row">
-
-			<?php if (isset($errors)) : ?>
-				<p class="form__message"><?= (in_array('name', $errors)) ? "Заполните это поле" : ''; ?></p>
-			<?php endif; ?>
 
 			<label class="form__label" for="name">Название <sup>*</sup></label>
 
-			<input class="form__input" type="text" name="name" id="name" value="<?= $name; ?>" placeholder="Введите название">
+			<input class="form__input
+									<?php if (in_array('name', $errors)) : ?>
+								        form__input--error
+							        <?php endif; ?>
+			" type="text" name="name" id="name" value="<?= $name; ?>" placeholder="Введите название">
+
+			<?php if (in_array('name', $errors)) : ?>
+				<p class="form__message">Заполните это поле</p>
+			<?php endif; ?>
 		</div>
 
 		<div class="form__row">
 
-			<?php if (isset($errors)) : ?>
-				<p class="form__message"><?= (in_array('project', $errors)) ? "Заполните это поле" : ''; ?></p>
-			<?php endif; ?>
-
 			<label class="form__label" for="project">Проект <sup>*</sup></label>
 
-			<select class="form__input form__input--select" name="project" id="project">
+			<select class="form__input form__input--select
+									<?php if (in_array('project', $errors)) : ?>
+								        form__input--error
+							        <?php endif; ?>
+			" name="project" id="project">
 				<?php foreach ($projects as $project) : ?>
 					<?php if ($project !== 'Все') : ?>
-						<option value="<?=  $project; ?>"
+						<option value="<?= $project; ?>"
 							<?php if (isset($_POST['project']) && $_POST['project'] === $project)
 									{print("selected");} ?>>
 							<?= $project; ?>
@@ -39,17 +43,25 @@ $date = htmlentities($_POST['date']) ?? '';
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</select>
+
+			<?php if (in_array('project', $errors)) : ?>
+				<p class="form__message">Выберите проект</p>
+			<?php endif; ?>
 		</div>
 
 		<div class="form__row">
 
-			<?php if (isset($errors)) : ?>
-				<p class="form__message"><?= (in_array('date', $errors)) ? "Заполните это поле" : ''; ?></p>
-			<?php endif; ?>
-
 			<label class="form__label" for="date">Дата выполнения</label>
 
-			<input class="form__input form__input--date" type="date" name="date" id="date" value="<?= $date; ?>" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
+			<input class="form__input form__input--date
+									<?php if (in_array('date', $errors)) : ?>
+								        form__input--error
+							        <?php endif; ?>
+			" type="date" name="date" id="date" value="" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
+
+			<?php if (in_array('date', $errors)) : ?>
+				<p class="form__message">Введите дату в формате ДД.ММ.ГГГГ</p>
+			<?php endif; ?>
 		</div>
 
 		<div class="form__row">

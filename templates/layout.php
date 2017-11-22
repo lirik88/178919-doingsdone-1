@@ -8,8 +8,13 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="<?= $overlay ?? ''; ?>">
+<body class="<?php if (isset($_GET['add'])) : ?>
+				overlay
+			 <?php endif;?>">
 <h1 class="visually-hidden">Дела в порядке</h1>
+
+<?= var_dump($errors); ?><br>
+<?= var_dump($_FILES); ?>
 
 <div class="page-wrapper">
 	<div class="container container--with-sidebar">
@@ -159,5 +164,11 @@
 		</div>
 	</form>
 </div>
+
+<?php if(isset($_GET['add'])) {
+	require_once 'templates/modalForm.php';
+}
+?>
+
 </body>
 </html>
