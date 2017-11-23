@@ -13,6 +13,13 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 ['item' => 'Заказать пиццу',                  'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false]];
 
 
+//Выводим 404 при неправильном id
+if (count($_GET) && !isset($projects[$_GET['id']])) {
+	header('HTTP/1.0 404 Not Found', true, 404);
+	die();
+}
+
+
 //Подключаем шаблон страницы
 $indexPath = 'templates/index.php';
 $layoutPath = 'templates/layout.php';

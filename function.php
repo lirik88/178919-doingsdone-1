@@ -27,3 +27,10 @@ function getNumberOfTasks(array $tasks, string $project) {
 	}
 	return $result;
 }
+//Функция проверяет соответствует ли задача выбранному проекту
+function isTaskOfProject(string $project, array $projects) {
+	if ($projects[$_GET['id']] !== $project) {
+		return false;
+	}
+	return true;
+}
