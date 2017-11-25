@@ -13,7 +13,7 @@
 									<?php if (in_array('name', $errors)) : ?>
 								        form__input--error
 							        <?php endif; ?>
-			" type="text" name="name" id="name" value="<?= $name; ?>" placeholder="Введите название">
+			" type="text" name="addForm[name]" id="name" value="<?= $addForm['name'] ?? ''; ?>" placeholder="Введите название">
 
 			<?php if (in_array('name', $errors)) : ?>
 				<p class="form__message">Заполните это поле</p>
@@ -28,11 +28,11 @@
 									<?php if (in_array('project', $errors)) : ?>
 								        form__input--error
 							        <?php endif; ?>
-			" name="project" id="project">
+			" name="addForm[project]" id="project">
 				<?php foreach ($projects as $project) : ?>
 					<?php if ($project !== 'Все') : ?>
 						<option value="<?= $project; ?>"
-							<?php if (isset($_POST['project']) && $_POST['project'] === $project)
+							<?php if (isset($_POST['addForm']['project']) && $_POST['addForm']['project'] === $project)
 									{print("selected");} ?>>
 							<?= $project; ?>
 						</option>
@@ -53,7 +53,7 @@
 									<?php if (in_array('date', $errors)) : ?>
 								        form__input--error
 							        <?php endif; ?>
-			" type="date" name="date" id="date" value="<?= $date ?>" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
+			" type="date" name="addForm[date]" id="date" value="<?= $addForm['date'] ?? '' ?>" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
 
 			<?php if (in_array('date', $errors)) : ?>
 				<p class="form__message">Введите дату в формате ДД.ММ.ГГГГ</p>

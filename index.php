@@ -8,9 +8,8 @@ $title = 'Дела в порядке!';
 $required = ['name', 'date', 'project'];
 $rules = ['date' => 'isCorrectDate'];
 $errors = [];
-$name = $_POST['name'] ?? '';
-$project = $_POST['project'] ?? '';
-$date = $_POST['date'] ?? '';
+$addForm = $_POST['addForm'] ?? [];
+
 
 // массив проектов
 $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
@@ -27,11 +26,11 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	foreach ($required as $field) {
-		if (!isset($_POST[$field])) {
+		if (!isset($_POST['addForm'][$field])) {
 			$errors[] = $field;
 		}
 	}
-	foreach ($_POST as $key => $value) {
+	foreach ($_POST['addForm'] as $key => $value) {
 		if (in_array($key, $required) && $value == '') {
 			$errors[] = $key;
 		}
@@ -42,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 		}
 	}
+
 	if (isset($_FILES['preview'])) {
 		$file_name = $_FILES['preview']['name'];
 		$file_path = __DIR__ . '/';
@@ -51,10 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$errors[] = 'file';
 		}
 	}
+
 	if (!count($errors)) {
-		array_unshift($tasks, ['item' => $name, 'date' => $date, 'project' => $project, 'complete' => false]);
+		array_unshift($tasks, ['item' => $addForm['name'], 'date' => $addForm['date'], 'project' => $addForm['project'], 'complete' => false]);
 	}
 }
 // Вывод шаблона
 print renderTemplate($indexPath, $layoutPath,
-					compact('tasks', 'projects', 'title', 'errors', 'name', 'date', 'project'));
+					compact('tasks', 'projects', 'title', 'errors', 'addForm'));

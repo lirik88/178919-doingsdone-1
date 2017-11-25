@@ -13,8 +13,9 @@
 			 <?php endif;?>">
 <h1 class="visually-hidden">Дела в порядке</h1>
 
+<?= var_dump($addForm); ?><br>
 <?= var_dump($errors); ?><br>
-<?= var_dump($_FILES); ?>
+<?= var_dump($_POST); ?>
 
 <div class="page-wrapper">
 	<div class="container container--with-sidebar">
