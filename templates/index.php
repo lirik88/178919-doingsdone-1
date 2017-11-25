@@ -34,7 +34,7 @@
 						<span class="checkbox__text"><?= htmlentities($task['item']) ?></span>
 					</label>
 				</td>
-				<td class="task__date"><?= htmlentities($task['date']) ?></td>
+				<td class="task__date"><?= str_replace("-", ".",htmlentities($task['date'])) ?></td>
 
 				<td class="task__controls">
 				</td>

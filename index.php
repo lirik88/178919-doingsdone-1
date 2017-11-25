@@ -8,6 +8,9 @@ $title = 'Дела в порядке!';
 $required = ['name', 'date', 'project'];
 $rules = ['date' => 'isCorrectDate'];
 $errors = [];
+$name = $_POST['name'] ?? '';
+$project = $_POST['project'] ?? '';
+$date = $_POST['date'] ?? '';
 
 // массив проектов
 $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
@@ -20,24 +23,17 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 ['item' => 'Купить корм для кота',            'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false],
 ['item' => 'Заказать пиццу',                  'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false]];
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-	$name = $_POST['name'] ?? '';
-	$project = $_POST['project'] ?? '';
-	$date = $_POST['date'] ?? '';
-
-	if (isset($_FILES['preview'])) {
-		$file_name = $_FILES['preview']['name'];
-		$file_path = __DIR__ . '/';
-
-		move_uploaded_file($_FILES['preview']['tmp_name'], $file_path . $file_name);
+	foreach ($required as $field) {
+		if (!isset($_POST[$field])) {
+			$errors[] = $field;
+		}
 	}
-
-
 	foreach ($_POST as $key => $value) {
 		if (in_array($key, $required) && $value == '') {
 			$errors[] = $key;
-			break;
 		}
 		if (in_array($key, $rules)) {
 			$result = call_user_func($rules['key'], $value);
@@ -46,12 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			}
 		}
 	}
-	if (count($errors)) {
-		$_GET['add'] = true;
+	if (isset($_FILES['preview'])) {
+		$file_name = $_FILES['preview']['name'];
+		$file_path = __DIR__ . '/';
+		move_uploaded_file($_FILES['preview']['tmp_name'], $file_path . $file_name);
+
+		if ($_FILES['preview']['size'] > 0 && !is_uploaded_file($_FILES['preview']['tmp_name'])) {
+			$errors[] = 'file';
+		}
 	}
 	if (!count($errors)) {
 		array_unshift($tasks, ['item' => $name, 'date' => $date, 'project' => $project, 'complete' => false]);
 	}
 }
-
-print renderTemplate($indexPath, $layoutPath, compact('tasks', 'projects', 'title', 'errors'));
+// Вывод шаблона
+print renderTemplate($indexPath, $layoutPath,
+					compact('tasks', 'projects', 'title', 'errors', 'name', 'date', 'project'));

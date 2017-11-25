@@ -30,7 +30,7 @@ function getNumberOfTasks(array $tasks, string $project) {
 
 //Функция валидации даты
 function isCorrectDate ($date) {
-	$aDate_parts = preg_split("/[\s-]+/", $date);
+	$aDate_parts = explode("-", $date);
 
 	if (checkdate(
 	$aDate_parts[1], // Month

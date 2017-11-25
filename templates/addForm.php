@@ -1,7 +1,3 @@
-<?php
-$name = $_POST['name'] ?? '';
-$date = $_POST['date'] ?? '';
-?>
 
 <div class="modal">
 	<button class="modal__close" type="button" name="button">Закрыть</button>
@@ -57,7 +53,7 @@ $date = $_POST['date'] ?? '';
 									<?php if (in_array('date', $errors)) : ?>
 								        form__input--error
 							        <?php endif; ?>
-			" type="date" name="date" id="date" value="" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
+			" type="date" name="date" id="date" value="<?= $date ?>" placeholder="Введите дату в формате ДД.ММ.ГГГГ">
 
 			<?php if (in_array('date', $errors)) : ?>
 				<p class="form__message">Введите дату в формате ДД.ММ.ГГГГ</p>

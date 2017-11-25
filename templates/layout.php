@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="<?php if (isset($_GET['add'])) : ?>
+<body class="<?php if (isset($_GET['add']) || count($errors)) : ?>
 				overlay
 			 <?php endif;?>">
 <h1 class="visually-hidden">Дела в порядке</h1>
@@ -165,8 +165,8 @@
 	</form>
 </div>
 
-<?php if(isset($_GET['add'])) {
-	require_once 'templates/modalForm.php';
+<?php if(isset($_GET['add']) || count($errors)) {
+	require_once 'templates/addForm.php';
 }
 ?>
 
