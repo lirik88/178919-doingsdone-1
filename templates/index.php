@@ -17,8 +17,7 @@
 
 		<label class="checkbox">
 			<a href="/">
-				<!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
-				<input class="checkbox__input visually-hidden" type="checkbox">
+				<input class="checkbox__input visually-hidden" type="checkbox" <?= ($show_complete_tasks === 1) ? 'checked': ''; ?>>
 				<span class="checkbox__text">Показывать выполненные</span>
 			</a>
 		</label>
@@ -28,18 +27,20 @@
 
 		<?php foreach ($tasks as $task) : ?>
 			<?php if ((isset($_GET['id']) && isTaskOfProject($task['project'], $projects)) || !count($_GET)) : ?>
-				<tr class="tasks__item task <?= (htmlentities($task['complete'])) ? "task--completed" : ""; ?>">
-					<td class="task__select">
-						<label class="checkbox task__checkbox">
-							<input class="checkbox__input visually-hidden" type="checkbox">
-							<span class="checkbox__text"><?= htmlentities($task['item']) ?></span>
-						</label>
-					</td>
-					<td class="task__date"><?= htmlentities($task['date']) ?></td>
+				<?php if ((!$show_complete_tasks && !$task['complete']) || $show_complete_tasks) : ?>
+					<tr class="tasks__item task <?= (htmlentities($task['complete'])) ? "task--completed" : ""; ?>">
+						<td class="task__select">
+							<label class="checkbox task__checkbox">
+								<input class="checkbox__input visually-hidden" type="checkbox">
+								<span class="checkbox__text"><?= htmlentities($task['item']) ?></span>
+							</label>
+						</td>
+						<td class="task__date"><?= htmlentities($task['date']) ?></td>
 
-					<td class="task__controls">
-					</td>
-				</tr>
+						<td class="task__controls">
+						</td>
+					</tr>
+				<? endif; ?>
 			<? endif; ?>
 		<?php endforeach; ?>
 

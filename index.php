@@ -1,5 +1,6 @@
 <?php
 require_once('function.php');
+$show_complete_tasks = true;
 // массив проектов
 $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
 
@@ -14,17 +15,33 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 
 
 //Выводим 404 при неправильном id
-if (count($_GET) && !isset($projects[$_GET['id']])) {
-	header('HTTP/1.0 404 Not Found', true, 404);
-	die();
-}
+if (count($_GET)) {
+	if (isset($_GET['id']) && !isset($projects[$_GET['id']])) {
+		header('HTTP/1.0 404 Not Found', true, 404);
+		die();
+	}
 
+	if (isset($_GET['show_completed'])) {
+		setcookie('show_completed', $_GET['show_completed']);
+		header('Location: /');
+	}
+}
+if (isset($_COOKIE['show_completed'])) {
+	switch ($_COOKIE['show_completed']) {
+		case 0:
+			$show_complete_tasks = 0;
+			break;
+		case 1:
+			$show_complete_tasks = 1;
+			break;
+	}
+}
 
 //Подключаем шаблон страницы
 $indexPath = 'templates/index.php';
 $layoutPath = 'templates/layout.php';
 $title = 'Дела в порядке!';
 
-$html = renderTemplate($indexPath, $layoutPath, compact('tasks', 'projects', 'title'));
+$html = renderTemplate($indexPath, $layoutPath, compact('tasks', 'projects', 'title', 'show_complete_tasks'));
 
 print($html);
