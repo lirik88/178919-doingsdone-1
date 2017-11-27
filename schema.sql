@@ -20,8 +20,8 @@ CREATE TABLE tasks (
   name            CHAR(128) NOT NULL UNIQUE,
   user_id         INT,
   created_at      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  is_completed    TIMESTAMP DEFAULT NULL,
-  completed       TINYINT(1) DEFAULT 0,
+  completed_at    TIMESTAMP DEFAULT NULL,
+  is_completed    TINYINT(1) DEFAULT 0,
   deadline        TIMESTAMP DEFAULT NULL,
   is_deleted      TINYINT(1) DEFAULT 0,
 
