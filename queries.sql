@@ -10,22 +10,22 @@ VALUES
 
 # Существующий список пользователей
 INSERT INTO
-  users (created_on, email, name, password, userpic)
+  users (email, name, password, userpic)
 VALUES
-  ('2017-11-26', 'ignat.v@gmail.com', 'Игнат', '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka', '/img/user-pic.jpg'),
-  ('2017-11-26', 'kitty_93@li.ru', 'Леночка', '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa', NULL),
-  ('2017-11-26', 'warrior07@mail.ru', 'Руслан', '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW', NULL);
+  ('ignat.v@gmail.com', 'Игнат', '$2y$10$OqvsKHQwr0Wk6FMZDoHo1uHoXd4UdxJG/5UDtUiie00XaxMHrW8ka', '/img/user-pic.jpg'),
+  ('kitty_93@li.ru', 'Леночка', '$2y$10$bWtSjUhwgggtxrnJ7rxmIe63ABubHQs0AS0hgnOo41IEdMHkYoSVa', NULL),
+  ('warrior07@mail.ru', 'Руслан', '$2y$10$2OxpEH7narYpkOT1H5cApezuzh10tZEEQ2axgFOaKW.55LxIJBgWW', NULL);
 
 # Список задач
 INSERT INTO
-  tasks (project_id, name, user_id, created_on, deadline, completed_on, completed)
+  tasks (project_id, name, user_id, deadline, completed_at, is_completed)
 VALUES
-  (3, 'Собеседование в IT-компании', 1, '2017-11-26', '2018-06-01', NULL, 0),
-  (3, 'Выполнить тестовое задание', 1, '2017-11-26', '2018-05-18', NULL, 0),
-  (2, 'Сделать задание первого раздела', 1, '2017-11-26', '2018-04-21', NULL, 0),
-  (1, 'Встреча с другом', 1, '2017-11-26', '2018-04-22', '2017-11-26', 1),
-  (4, 'Купить корм для кота', 1, '2017-11-26', NULL, NULL, 0),
-  (4, 'Заказать пиццу', 1, '2017-11-26', NULL, NULL, 0);
+  (3, 'Собеседование в IT-компании', 1, '2018-06-01', NULL, 0),
+  (3, 'Выполнить тестовое задание', 1, '2018-05-18', NULL, 0),
+  (2, 'Сделать задание первого раздела', 1, '2018-04-21', NULL, 0),
+  (1, 'Встреча с другом', 1, '2018-04-22', '2017-11-26', 1),
+  (4, 'Купить корм для кота', 1, NULL, NULL, 0),
+  (4, 'Заказать пиццу', 1, NULL, NULL, 0);
 
 # получить список из всех проектов для одного пользователя;
 SELECT id, name FROM projects WHERE user_id = 1 ORDER BY id;
@@ -34,7 +34,7 @@ SELECT id, name FROM projects WHERE user_id = 1 ORDER BY id;
 SELECT * FROM tasks WHERE project_id = 3 ORDER BY deadline;
 
 # пометить задачу как выполненную;
-UPDATE tasks SET completed_on = CURDATE(), completed = 1 WHERE id = 5;
+UPDATE tasks SET completed_at = CURDATE(), is_completed = 1 WHERE id = 5;
 
 # получить все задачи для завтрашнего дня;
 SELECT * FROM tasks WHERE deadline = NOW() + INTERVAL 1 DAY;
