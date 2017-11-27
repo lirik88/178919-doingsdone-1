@@ -24,6 +24,12 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 
 
 
+//Выводим 404 при неправильном id
+if (count($_GET) && !isset($projects[$_GET['id']])) {
+	header('HTTP/1.0 404 Not Found', true, 404);
+	die();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	foreach ($required as $field) {
 		if (!isset($_POST['addForm'][$field])) {

@@ -49,7 +49,9 @@
 					<ul class="main-navigation__list">
 						<?php for($i = 0; $i < count($projects); $i++) : ?>
 							<li class="main-navigation__list-item <?= ($i === 0) ? "main-navigation__list-item--active" : ""; ?>">
-								<a class="main-navigation__list-item-link" href="#"><?= $projects[$i] ?></a>
+								<a class="main-navigation__list-item-link" href="
+									<?= ($i !== 0) ? "index.php?id=$i" : 'index.php'; ?>">
+									<?= $projects[$i] ?></a>
 								<span class="main-navigation__list-item-count"><?= getNumberOfTasks($tasks, $projects[$i]) ?></span>
 							</li>
 						<?php endfor; ?>
