@@ -1,9 +1,8 @@
 <?php
 require_once('function.php');
-$show_complete_tasks = false;
 // массив проектов
 $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
-
+$show_complete_tasks = '';
 
 //ассоциативный массив с задачами
 $tasks = [['item' => 'Собеседование в IT компании',     'date' => '01.06.2018', 'project' => 'Работа',        'complete' => false],
@@ -23,11 +22,11 @@ if (count($_GET)) {
 
 	if (isset($_GET['show_completed'])) {
 		setcookie('show_completed', $_GET['show_completed']);
-		header('Location: /');
+		header("Location: /");
 	}
 }
 if (isset($_COOKIE['show_completed'])) {
-	$show_complete_tasks = $_COOKIE['show_completed'] ?? false;
+	$show_complete_tasks = ($_COOKIE['show_completed'] == 1) ? 'checked' : '';
 }
 
 //Подключаем шаблон страницы

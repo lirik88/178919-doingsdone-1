@@ -16,8 +16,8 @@
 		</nav>
 
 		<label class="checkbox">
-			<a href="/">
-				<input class="checkbox__input visually-hidden" type="checkbox" <?= ($show_complete_tasks) ? 'checked': ''; ?>>
+			<a href="/index.php?show_completed=<?= (isset($_COOKIE['show_completed'])) ? (int)!(bool)$_COOKIE['show_completed'] : '1' ?>">
+				<input class="checkbox__input visually-hidden" type="checkbox" <?= $show_complete_tasks ?>>
 				<span class="checkbox__text">Показывать выполненные</span>
 			</a>
 		</label>
