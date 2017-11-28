@@ -1,6 +1,6 @@
 <?php
 require_once('function.php');
-$show_complete_tasks = true;
+$show_complete_tasks = false;
 // массив проектов
 $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
 
@@ -27,14 +27,7 @@ if (count($_GET)) {
 	}
 }
 if (isset($_COOKIE['show_completed'])) {
-	switch ($_COOKIE['show_completed']) {
-		case 0:
-			$show_complete_tasks = 0;
-			break;
-		case 1:
-			$show_complete_tasks = 1;
-			break;
-	}
+	$show_complete_tasks = $_COOKIE['show_completed'] ?? false;
 }
 
 //Подключаем шаблон страницы
