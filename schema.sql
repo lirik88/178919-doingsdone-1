@@ -7,7 +7,7 @@ CREATE TABLE users (
   created_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   email         CHAR(128) NOT NULL UNIQUE,
   name          CHAR(128) NOT NULL,
-  password      CHAR(32) NOT NULL,
+  password      CHAR(60) NOT NULL,
   userpic       TEXT DEFAULT NULL,
   is_deleted    TINYINT(1) DEFAULT 0,
 
