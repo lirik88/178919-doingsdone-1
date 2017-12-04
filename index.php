@@ -9,10 +9,13 @@ $required = ['name', 'date', 'project'];
 $rules = ['date' => 'isCorrectDate'];
 $errors = [];
 $addForm = $_POST['addForm'] ?? [];
-
+$show_complete_tasks = '';
 
 // массив проектов
 $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
+
+
+
 
 //ассоциативный массив с задачами
 $tasks = [['item' => 'Собеседование в IT компании',     'date' => '01.06.2018', 'project' => 'Работа',        'complete' => false],
@@ -25,10 +28,21 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 
 
 //Выводим 404 при неправильном id
-if (count($_GET) && !isset($projects[$_GET['id']])) {
-	header('HTTP/1.0 404 Not Found', true, 404);
-	die();
+if (count($_GET)) {
+	if (isset($_GET['id']) && !isset($projects[$_GET['id']])) {
+		header('HTTP/1.0 404 Not Found', true, 404);
+		die();
+	}
+
+	if (isset($_GET['show_completed'])) {
+		setcookie('show_completed', $_GET['show_completed']);
+		header("Location: /");
+	}
 }
+if (isset($_COOKIE['show_completed'])) {
+	$show_complete_tasks = ($_COOKIE['show_completed'] == 1) ? 'checked' : '';
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	foreach ($required as $field) {
@@ -48,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
+
 	if (isset($_FILES['preview'])) {
 		$file_name = $_FILES['preview']['name'];
 		$file_path = __DIR__ . '/';
@@ -57,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$errors[] = 'file';
 		}
 	}
+
 
 	if (!count($errors)) {
 		array_unshift($tasks, ['item' => $addForm['name'], 'date' => $addForm['date'], 'project' => $addForm['project'], 'complete' => false]);
