@@ -1,5 +1,7 @@
 <?php
 require_once('function.php');
+
+$login = false;
 // массив проектов
 $projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
 
@@ -14,9 +16,16 @@ $tasks = [['item' => 'Собеседование в IT компании',     'd
 
 
 //Выводим 404 при неправильном id
-if (count($_GET) && !isset($projects[$_GET['id']])) {
-	header('HTTP/1.0 404 Not Found', true, 404);
-	die();
+if (count($_GET)){
+	if(isset($_GET['id']) && !isset($projects[$_GET['id']])) {
+		header('HTTP/1.0 404 Not Found', true, 404);
+		die();
+	}
+	if (isset($_GET['action'])){
+		if ($_GET['action'] === 'login'){
+			$login = true;
+		}
+	}
 }
 
 
@@ -25,6 +34,6 @@ $indexPath = 'templates/index.php';
 $layoutPath = 'templates/layout.php';
 $title = 'Дела в порядке!';
 
-$html = renderTemplate($indexPath, $layoutPath, compact('tasks', 'projects', 'title'));
+$html = renderTemplate($indexPath, $layoutPath, compact('tasks', 'projects', 'title', 'login'));
 
 print($html);
