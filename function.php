@@ -27,6 +27,23 @@ function getNumberOfTasks(array $tasks, string $project) {
 	}
 	return $result;
 }
+
+
+//Функция валидации даты
+function isCorrectDate ($date) {
+	$aDate_parts = explode("-", $date);
+
+	if (checkdate(
+	$aDate_parts[1], // Month
+	$aDate_parts[2], // Day
+	$aDate_parts[0] // Year
+	)
+	) {
+		return true;
+	}
+	return false;
+}
+
 //Функция проверяет соответствует ли задача выбранному проекту
 function isTaskOfProject(string $project, array $projects) {
 	if ($projects[$_GET['id']] !== $project) {
@@ -34,3 +51,4 @@ function isTaskOfProject(string $project, array $projects) {
 	}
 	return true;
 }
+

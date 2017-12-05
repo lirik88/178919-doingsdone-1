@@ -8,8 +8,14 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body><!--class="overlay"-->
+<body class="<?php if (isset($_GET['add']) || count($errors)) : ?>
+				overlay
+			 <?php endif;?>">
 <h1 class="visually-hidden">Дела в порядке</h1>
+
+<?= var_dump($addForm); ?><br>
+<?= var_dump($errors); ?><br>
+<?= var_dump($_POST); ?>
 
 <div class="page-wrapper">
 	<div class="container container--with-sidebar">
@@ -19,7 +25,7 @@
 			</a>
 
 			<div class="main-header__side">
-				<a class="main-header__side-item button button--plus" href="#">Добавить задачу</a>
+				<a class="main-header__side-item button button--plus" href="index.php?add">Добавить задачу</a>
 
 				<div class="main-header__side-item user-menu">
 					<div class="user-menu__image">
@@ -161,5 +167,11 @@
 		</div>
 	</form>
 </div>
+
+<?php if(isset($_GET['add']) || count($errors)) {
+	require_once 'templates/addForm.php';
+}
+?>
+
 </body>
 </html>
