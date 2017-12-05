@@ -30,7 +30,7 @@
 						<div class="user-menu__data">
 							<p>Константин</p>
 
-							<a href="index.php?action=logout">Выйти</a>
+							<a href="logout.php">Выйти</a>
 						</div>
 					</div>
 				</div>

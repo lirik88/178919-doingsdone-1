@@ -1,18 +1,18 @@
 <?php
-require_once('function.php');
-
+//Объявляем переменные
+$indexPath = 'templates/index.php';
+$layoutPath = 'templates/layout.php';
+$title = 'Дела в порядке!';
 $login = false;
-// массив проектов
-$projects = ['Все', 'Входящие', 'Учеба', 'Работа', 'Домашние дела', 'Авто'];
+$isGuest = true;
+$errors = [];
+$required = ['email', 'password'];
 
+session_start();
 
-//ассоциативный массив с задачами
-$tasks = [['item' => 'Собеседование в IT компании',     'date' => '01.06.2018', 'project' => 'Работа',        'complete' => false],
-['item' => 'Выполнить тестовое задание',      'date' => '25.05.2018', 'project' => 'Работа',        'complete' => false],
-['item' => 'Сделать задание первого раздела', 'date' => '21.04.2018', 'project' => 'Учеба',         'complete' => true],
-['item' => 'Встреча с другом',                'date' => '22.04.2018', 'project' => 'Входящие',      'complete' => false],
-['item' => 'Купить корм для кота',            'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false],
-['item' => 'Заказать пиццу',                  'date' => 'Нет',        'project' => 'Домашние дела', 'complete' => false]];
+require_once('function.php');
+require_once('data.php');
+require_once('userdata.php');
 
 
 //Выводим 404 при неправильном id
@@ -21,19 +21,43 @@ if (count($_GET)){
 		header('HTTP/1.0 404 Not Found', true, 404);
 		die();
 	}
-	if (isset($_GET['action'])){
-		if ($_GET['action'] === 'login'){
-			$login = true;
+}
+
+if (isset($_SESSION['user'])) {
+	$isGuest = false;
+}
+else {
+	if (isset($_GET['login'])){
+		$login = true;
+	}
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'login') {
+	$get_data = $_POST;
+	foreach ($required as $value) {
+		if (!array_key_exists($value, $get_data) || empty($get_data[$value])) {
+			$errors[$value] = true;
 		}
+	}
+
+	$user = searchUserByEmail($get_data['email'], $users);
+
+	if ($user) {
+		if (password_verify($get_data['password'], $user['password'])) {
+			$_SESSION['user'] = $user;
+		} else {
+			$errors['password'] = true;
+		}
+	} else {
+		$errors['email'] = true;
+	}
+
+	if (empty($errors)) {
+		header('Location: index.php');
+	} else {
 	}
 }
 
 
-//Подключаем шаблон страницы
-$indexPath = 'templates/index.php';
-$layoutPath = 'templates/layout.php';
-$title = 'Дела в порядке!';
-
-$html = renderTemplate($indexPath, $layoutPath, compact('tasks', 'projects', 'title', 'login'));
-
-print($html);
+print renderTemplate($indexPath, $layoutPath,
+	compact('tasks', 'projects', 'title', 'login', 'isGuest', 'errors'));

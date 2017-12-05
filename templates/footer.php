@@ -37,7 +37,7 @@
 			</div>
 		</footer>
 		<?php
-			if ($login) {
+			if ($login || !empty($errors)) {
 				require 'templates/authForm.php';
 			}
 		?>

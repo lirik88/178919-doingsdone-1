@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="body-background <?= ($login) ? 'overlay' : '' ?>"><!--class="overlay"-->
+<body class="body-background <?= ($login || !empty($errors)) ? 'overlay' : '' ?>">
 	<h1 class="visually-hidden">Дела в порядке</h1>
 	<div class="page-wrapper">
 		<div class="container">
@@ -18,7 +18,7 @@
 				</a>
 
 				<div class="main-header__side">
-					<a class="main-header__side-item button button--transparent" href="index.php?action=login">Войти</a>
+					<a class="main-header__side-item button button--transparent" href="index.php?login">Войти</a>
 				</div>
 			</header>
 			<div class="content">
@@ -36,3 +36,4 @@
 			</div>
 		</div>
 	</div>
+
