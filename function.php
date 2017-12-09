@@ -52,3 +52,15 @@ function isTaskOfProject(string $project, array $projects) {
 	return true;
 }
 
+//Поиск по email
+function searchUserByEmail ($email, $users) {
+	foreach ($users as $value) {
+		$result = null;
+		if ($value['email'] === $email) {
+			$result = $value;
+			break;
+		}
+	}
+	return $result;
+};
+
